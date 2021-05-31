@@ -1,0 +1,67 @@
+#Game that playes itself untill win.
+from random import randint
+
+def make_random_ticket(loteria):
+	random_ticket=[]
+	while len(random_ticket)<4:
+		a=randint(0,12)
+		symbol=loteria[a]
+		if symbol not in random_ticket:
+			random_ticket.append(symbol)
+	return random_ticket
+
+def make_winning_ticket(loteria):
+	winning_ticket=[]
+	while len(winning_ticket)<4:
+		a=randint(0,12)
+		symbol=loteria[a]
+		if symbol not in winning_ticket:
+			winning_ticket.append(symbol)
+	return winning_ticket
+
+
+def check_ticket(random_ticket,winning_ticket):
+	if random_ticket==winning_ticket:
+		return True
+	else:
+		return False
+		
+max_tries=1_00_000 #Its set just in situation we will never get a wining ticket
+loteria=[1,2,3,4,5,6,7,'a','b','c','d','e','f']#The set we are pulling tickets from
+plays=0
+random_ticket=make_random_ticket(loteria)
+winning_ticket=make_winning_ticket(loteria)
+
+won=False
+drows=[]
+while not won:
+	random_ticket=make_random_ticket(loteria)
+	won=check_ticket(random_ticket,winning_ticket)
+	if plays<=5:
+		drows.append(random_ticket)
+	plays+=1
+	if plays>=max_tries:
+		break
+if won:
+	print(f"Gratulations you have won ,your winning ticket is {winning_ticket} ")
+	print(f"Your randomly chosen ticket is {random_ticket} and they match ")
+	print(f"Your first 5 missed drows : {drows} ")
+	
+	print(f"It has taken {plays} plays to win ")
+else:
+	print(f"we have tried {plays} your winning_ticket{winning_ticket}and {random_ticket} dont match")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
